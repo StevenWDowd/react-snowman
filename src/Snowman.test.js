@@ -2,23 +2,24 @@ import React from "react";
 import Snowman from "./Snowman";
 import { render, fireEvent } from "@testing-library/react";
 
-describe("Snowman", function(){
-  test("should end after 6 wrong guesses", function() {
-    const { container, debug } = render(<Snowman />);
+describe("Snowman", function () {
+  test("should end after 6 wrong guesses", function () {
+    const { container, debug } = render(<Snowman words={["apple"]} />);
     debug(container);
 
     //make 6 incorrect guesses
     const letterButtons = Array.from(container.querySelectorAll("button"));
     //console.log(letterButtons);
-    const wrongLetters = ["z","y","x","w","v", "u"];
-    const wrongButtons = letterButtons.filter(button => wrongLetters.includes(button.getAttribute("value")));
+    const wrongLetters = ["z", "y", "x", "w", "v", "u"];
+    const wrongButtons = letterButtons
+      .filter(button => wrongLetters.includes(button.getAttribute("value")));
     //console.log(wrongButtons);
 
     wrongButtons.map(button => fireEvent.click(button));
 
     const numberOfButtons = container.querySelectorAll("button").length;
 
-    expect(numberOfButtons).toEqual(0);
+    expect(numberOfButtons).toEqual(1);
     //expect("<p>You Lose!</p>").toBeInDocument();
 
     expect(container.querySelector("p:last-of-type")).toContainHTML("You Lose!");
@@ -26,8 +27,8 @@ describe("Snowman", function(){
 
   });
 
-  test("should pass snapshot test", function(){
-    const { container, debug } = render(<Snowman />);
+  test("should pass snapshot test", function () {
+    const { container, debug } = render(<Snowman words={["apple"]}/>);
     expect(container).toMatchSnapshot();
   });
 });

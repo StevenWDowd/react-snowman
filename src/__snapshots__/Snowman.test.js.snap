@@ -153,6 +153,9 @@ exports[`Snowman should pass snapshot test 1`] = `
         z
       </button>
     </p>
+    <button>
+      Restart game
+    </button>
   </div>
 </div>
 `;
